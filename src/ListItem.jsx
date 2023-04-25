@@ -5,7 +5,6 @@ const ListItem = (props) => {
     return (
         <div>
             <p>{props.item}</p>
-            {props.priority}
         </div>
     )
 }
