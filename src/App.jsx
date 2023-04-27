@@ -3,31 +3,40 @@ import ListItem from "./ListItem"
 import { useState } from "react"
 
 const App = () => {
-    const [itemList, setItemList] = useState([
-        "change oil",
-        "clean truck",
-        "sweep garage",
-        "wash motorcycle",
-        "organize",
-        "clean my room",
-        "beat kyle at ping pong"
-    ])
-    const [inputVal, setInputVal] = useState('')
+    const [itemList, setItemList] = useState(["play ping pong", "workout"])
+    const [inputVal, setInputVal] = useState("")
 
-    console.log(inputVal)
+    const addItemToList = e => {
+        e.preventDefault()
+        setItemList([...itemList, inputVal])
+        setInputVal("")
+    }
+
+    const removeItemFromList = index => {
+        itemList.splice(index, 1)
+        setItemList([...itemList])
+    }
 
     return (
         <div className="App">
             <h1>To Do List</h1>
 
-            <form>
-                <input placeholder="Write your new to do item here" onChange={e => setInputVal(e.target.value)}/>
-                InputVal: {inputVal}
+            <form onSubmit={e => addItemToList(e)}>
+                <input
+                    placeholder="Write your new to do item here"
+                    value={inputVal}
+                    onChange={e => setInputVal(e.target.value)}
+                />
                 <button>Add</button>
             </form>
             {/* Displaying state values inline w/implicit return thru arrow function*/}
             {itemList.map((itemValue, index) => (
-                <ListItem item={itemValue} key={index} />
+                <ListItem
+                    item={itemValue}
+                    key={index}
+                    index={index}
+                    removeItemFromList={removeItemFromList}
+                />
             ))}
         </div>
     )
