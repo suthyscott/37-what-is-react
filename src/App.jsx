@@ -17,6 +17,12 @@ const App = () => {
         setItemList([...itemList])
     }
 
+    const editItem = (index, newVal) => {
+        console.log(index, newVal)
+        itemList.splice(index, 1, newVal)
+        setItemList([...itemList])
+    }
+
     return (
         <div className="App">
             <h1>To Do List</h1>
@@ -36,6 +42,7 @@ const App = () => {
                     key={index}
                     index={index}
                     removeItemFromList={removeItemFromList}
+                    editItem={editItem}
                 />
             ))}
         </div>
